@@ -1,4 +1,7 @@
-<script></script>
+<script>
+</script>
 <template>
-  <div></div>
+  <div>Facultades</div>
+  <Nuxt></Nuxt>
+  <Jaafacultades/>
 </template>
