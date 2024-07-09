@@ -1,15 +1,13 @@
 <script setup>
-const facultades = {
-    nombre: "EduTLan",
-    Facultad: "Educación y Ciencias Humanas",
-    semilleros: [
-            "AVI",
-            "Laboratorio IA",
-    ]
-}
-</script>
+import semillerosJson from "../data/Semillero_LosNadie.json";
 
+const semillero = semillerosJson[0];
+
+
+</script>
 <template>
-    <h1>Facultades</h1>
-    <Jaafacultades :facultades="facultades" />
+    <div class="m-4">
+    <h1>Detalles de Facultades</h1>
+     <jaDetallesfacultades :semillero="semillero"/> 
+</div>
 </template>
