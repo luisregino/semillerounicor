@@ -1,39 +1,76 @@
-<script setup>
-const puntales = definirProps({
- programas: Objeto	});
- estudiante = ref(puntales.semillero.integrantes.estudiantes[0]);
-</script>
-
 <template>
-    <h1>Facultades</h1>
-
-
-
-    <template>
-    <div class="card">
-        <Accordion :multiple="true" :activeIndex="[0]">
-            <AccordionTab header="Header I">
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </AccordionTab>
-            <AccordionTab header="Header II">
-                <p class="m-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                </p>
-            </AccordionTab>
-            <AccordionTab header="Header III">
-                <p class="m-0">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-                    officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                </p>
-            </AccordionTab>
-            <AccordionTab header="Header IV" :disabled="true"> </AccordionTab>
-        </Accordion>
-    </div>
+  <OrganizationChart v-model:selectionKeys="selection" :value="data" collapsible selectionMode="multiple">        
+      <template #person="slotProps">
+          <div class="flex flex-column">
+              <div class="flex flex-column align-items-center">
+                  <img :alt="slotProps.node.data.name" :src="slotProps.node.data.image" class="mb-3 w-3rem h-3rem" />
+                  <span class="font-bold mb-2">{{ slotProps.node.data.name }}</span>
+                  <span>{{ slotProps.node.data.title }}</span>
+              </div>
+          </div>
+      </template>
+      <template #default="slotProps">
+          <span>{{ slotProps.node.label }}</span>
+      </template>
+  </OrganizationChart>
 </template>
 
 <script setup>
+const facultades = [
+  {
+      nombre: "Facultad de Ingeniería",
+      titulo: "Ingeniería"
+  },
+  {
+      nombre: "Facultad de Ciencias de la Salud",
+      titulo: "Ciencias de la Salud"
+  },
+  {
+      nombre: "Facultad de Educación y Ciencias Humanas",
+      titulo: "Educación y Ciencias Humanas"
+  },
+  {
+      nombre: "Facultad de Ciencias Básicas",
+      titulo: "Ciencias Básicas"
+  },
+  {
+      nombre: "Facultad de Medicina Veterinaria y Zootecnia",
+      titulo: "Medicina Veterinaria y Zootecnia"
+  },
+  {
+      nombre: "Facultad de Ciencias Agrícolas",
+      titulo: "Ciencias Agrícolas"
+  },
+  {
+      nombre: "Facultad de Ciencias Económicas, Jurídicas y Administrativas",
+      titulo: "Ciencias Económicas, Jurídicas y Administrativas"
+  }
+];
+
+const data = ref({
+  key: '0',
+  type: 'person',
+  data: {
+      image: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png',
+      name: 'Universidad',
+      title: 'Principal'
+  },
+  children: facultades.map((facultad, index) => {
+      return {
+          key: `0_${index}`,
+          type: 'person',
+          data: {
+              image: 'https://static.vecteezy.com/system/resources/thumbnails/000/495/460/small/22_Profile.jpg',
+              name: facultad.nombre,
+              title: facultad.titulo
+          }
+      };
+  })
+});
+
+const selection = ref({});
 </script>
+
+<style>
+/* Puedes agregar tus estilos personalizados aquí */
+</style>
